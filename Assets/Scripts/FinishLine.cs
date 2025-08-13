@@ -1,13 +1,15 @@
 using UnityEngine;
 
-public class FinishLine : MonoBehaviour
+public class FinishLine : SceneReloader
 {
+    [SerializeField] private string sceneName = "Level1";
+    [SerializeField] private float reloadTime = 2f;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Bateu neste caralho");    
+            StartCoroutine(ReloadAfterDelay(sceneName, reloadTime));
         }
-        
     }
 }

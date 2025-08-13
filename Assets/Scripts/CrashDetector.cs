@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class CrashDetector : MonoBehaviour
+public class CrashDetector : SceneReloader
 {
-    public Collider2D headCollider; // arraste o collider da cabeça no Inspector
+    [SerializeField] private Collider2D headCollider;
+    [SerializeField] private string sceneName = "Level1";
+    [SerializeField] private float reloadTime = 1f;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.otherCollider == headCollider && 
+        if (collision.otherCollider == headCollider &&
             collision.collider.CompareTag("Ground"))
         {
-            Debug.Log("Bateu com a cabeça!");
+            StartCoroutine(ReloadAfterDelay(sceneName, reloadTime));
         }
     }
 }
